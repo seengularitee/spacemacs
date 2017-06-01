@@ -186,6 +186,7 @@
   - [[#registers][Registers]]
   - [[#errors-handling][Errors handling]]
   - [[#compiling][Compiling]]
+- [[#editorconfig][EditorConfig]]
 - [[#emacs-server][Emacs Server]]
   - [[#connecting-to-the-emacs-server][Connecting to the Emacs server]]
   - [[#keeping-the-server-alive][Keeping the server alive]]
@@ -544,7 +545,7 @@ tests are also run automatically when you synchronize with ~SPC f e R~.
 
 ** Dotfile Contents
 *** Configuration functions
-Three special functions in the =~/.spacemacs= file can be used to perform
+Five special functions in the =~/.spacemacs= file can be used to perform
 configuration at the beginning and end of Spacemacs loading process:
 
 - =dotspacemacs/layers= is called at the very startup of Spacemacs initialization,
@@ -610,7 +611,7 @@ to add some layers in =~/.myconfig=, set the variable like this:
 
 *** Setting configuration layers variables
 Some configuration layers have configuration variables to enable specific
-feature. For instance the [[file:../layers/+source-control/git/README.org][git layer]] has several configuration variables, they
+features. For instance the [[../layers/%2Bsource-control/git][git layer]] has several configuration variables, they
 can be set directly in the =dotspacemacs-configuration-layers= like this:
 
 #+BEGIN_SRC emacs-lisp
@@ -630,7 +631,7 @@ function of your dotfile is also a perfectly valid way to configure a layer.
 
 *** Disabling layer services in other layers
 Often layers enable services that other layers can use. For instance if you use
-the layer =auto-completion= then every other layers supporting =auto-completion=
+the layer =auto-completion= then all other layers supporting =auto-completion=
 will have this feature enabled.
 
 Sometimes you may want to disable a service added by a layer in some specific
@@ -737,9 +738,9 @@ Three styles are available:
 - Hybrid (a mix between Vim and Emacs).
 
 *** Vim
-Spacemacs behaves like in Vim using [[https://github.com/emacs-evil/evil][Evil]] mode package to emulate Vim key bindings.
-This is the default style of Spacemacs; it can be set explicitly by setting
-the =dotspacemacs-editing-style= variable to =vim= in the dotfile.
+Spacemacs behaves like in Vim using the [[https://github.com/emacs-evil/evil/][Evil]] mode package to emulate Vim key
+bindings. This is the default style of Spacemacs; it can be set explicitly by
+setting the =dotspacemacs-editing-style= variable to =vim= in the dotfile.
 
 To bind keys in Vim editing style (=insert state=):
 
@@ -1713,8 +1714,11 @@ If you choose =ivy= as completion system, make sure to read [[http://oremacs.com
 case you don't want to read everything, at least familiarise with [[http://oremacs.com/swiper/#minibuffer-key-bindings][minibuffer key
 bindings]]. Some useful key bindings are presented in following table.
 
+Initiate the transient state with ~M-SPC~ while in a =ivy= buffer.
+
 | Key Binding    | Description                                                                                          |
 |----------------+------------------------------------------------------------------------------------------------------|
+| ~M-SPC~        | initiate the transient state                                                                         |
 | ~C-m~ or ~RET~ | call default action on current candidate                                                             |
 | ~M-o~          | show the list of valid actions on current candidate (then press any of described keys to execute it) |
 | ~C-M-m~        | the same as ~RET~ but doesn't close completion minibuffer                                            |
@@ -3219,6 +3223,15 @@ Spacemacs binds a few commands to support compiling a project.
    | ~SPC c m~   | =helm-make=                    |
    | ~SPC c r~   | recompile                      |
 
+* EditorConfig
+Spacemacs has support for [[http://editorconfig.org/][EditorConfig]], a configuration file to "define and
+maintain consistent coding styles between different editors and IDEs."
+
+To enable this feature, [[https://github.com/editorconfig/editorconfig-core-c/blob/master/INSTALL.md][install the editorconfig command]].
+
+To customize your editorconfig experience, read [[https://github.com/editorconfig/editorconfig-emacs/blob/master/README.md#customize][the editorconfig-emacs package's
+documentation]].
+
 * Emacs Server
 Spacemacs starts a server at launch. This server is killed whenever you close
 your Emacs windows.
@@ -3265,6 +3278,8 @@ server is to use the following bindings:
 | ~SPC q r~  | Restart both Emacs and the server, prompting to save any changed buffers |
 | ~SPC q s~  | Save the buffers, quit Emacs and kill the server                         |
 | ~SPC q f~  | Kill the current frame                                                   |
+| ~SPC q t~  | Restart Emacs and debug with --with-timed-requires                       |
+| ~SPC q T~  | Restart Emacs and debug with --adv-timers                                |
 
 * Troubleshoot
 ** Loading fails
