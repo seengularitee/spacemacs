@@ -114,7 +114,7 @@
           "ii"  'markdown-insert-image
           "ik"  'spacemacs/insert-keybinding-markdown
           "iI"  'markdown-insert-reference-image
-          "il"  'markdown-insert-link
+          "il"  'markdown-insert-inline-link-dwim
           "iL"  'markdown-insert-reference-link-dwim
           "iw"  'markdown-insert-wiki-link
           "iu"  'markdown-insert-uri
@@ -122,6 +122,11 @@
           "k"   'markdown-kill-thing-at-point
           ;; List editing
           "li"  'markdown-insert-list-item
+          ;; Toggles
+          "ti"  'markdown-toggle-inline-images
+          "tl"  'markdown-toggle-url-hiding
+          "tt"  'markdown-toggle-gfm-checkbox
+          "tw"  'markdown-toggle-wiki-links
           ;; region manipulation
           "xb"  'markdown-insert-bold
           "xi"  'markdown-insert-italic

@@ -344,7 +344,9 @@
            ("spacemacs/toggle-holy-mode" . "emacs (holy-mode)")
            ("evil-lisp-state-\\(.+\\)" . "\\1")
            ("spacemacs/\\(.+\\)-transient-state/\\(.+\\)" . "\\2")
-           ("spacemacs/\\(.+\\)-transient-state/body" . "\\1-transient-state"))))
+           ("spacemacs/\\(.+\\)-transient-state/body" . "\\1-transient-state")
+           ("helm-mini\\|ivy-switch-buffer" . "list-buffers")
+           ("spacemacs-layouts/non-restricted-buffer-list-\\(helm\\|ivy\\)" . "global-list-buffers"))))
     (dolist (nd new-descriptions)
       ;; ensure the target matches the whole string
       (push (cons (cons nil (concat "\\`" (car nd) "\\'")) (cons nil (cdr nd)))
@@ -413,6 +415,27 @@
           ("\\11..9" . "digit-argument"))
         which-key-replacement-alist)
 
+  ;; SPC x i- inflection
+  ;; rename "k -> string-inflection-kebab-case"
+  ;; to "k,- -> string-inflection-kebab-case"
+  (push '(("\\(.*\\)k" . "string-inflection-kebab-case") .
+          ("\\1k,-" . "string-inflection-kebab-case"))
+        which-key-replacement-alist)
+
+  ;; hide the "- -> string-inflection-kebab-case" entry
+  (push '(("\\(.*\\)-" . "string-inflection-kebab-case") . t)
+        which-key-replacement-alist)
+
+  ;; rename "u -> string-inflection-underscore"
+  ;; to "u,_ -> string-inflection-underscore"
+  (push '(("\\(.*\\)u" . "string-inflection-underscore") .
+          ("\\1u,_" . "string-inflection-underscore"))
+        which-key-replacement-alist)
+
+  ;; hide the "_ -> string-inflection-underscore" entry
+  (push '(("\\(.*\\)_" . "string-inflection-underscore") . t)
+        which-key-replacement-alist)
+
   ;; C-c C-w-
   ;; rename the eyebrowse-switch-to-window-config-0 entry, to 0..9
   (push '(("\\(.*\\)0" . "eyebrowse-switch-to-window-config-0") .
@@ -447,7 +470,7 @@
       (concat leader-key " m")    "major mode commands"
       (concat leader-key " " dotspacemacs-emacs-command-key) "M-x"))
 
-  (which-key-declare-prefixes
+  (which-key-add-key-based-replacements
     dotspacemacs-leader-key '("root" . "Spacemacs root")
     dotspacemacs-emacs-leader-key '("root" . "Spacemacs root")
     (concat dotspacemacs-leader-key " m")

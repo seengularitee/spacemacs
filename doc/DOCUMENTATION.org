@@ -126,6 +126,7 @@
       - [[#buffers-manipulation-transient-state][Buffers manipulation transient state]]
       - [[#special-buffers][Special Buffers]]
       - [[#files-manipulations-key-bindings][Files manipulations key bindings]]
+      - [[#frame-manipulation-key-bindings][Frame manipulation key bindings]]
       - [[#emacs-and-spacemacs-files][Emacs and Spacemacs files]]
       - [[#browsing-files-in-completion-buffer][Browsing files in completion buffer]]
     - [[#ido][Ido]]
@@ -2178,6 +2179,19 @@ Files manipulation commands (start with ~f~):
 | ~SPC f v p~ | add a local variable to the first line of the current file                                             |
 | ~SPC f y~   | show and copy current file absolute path in the minibuffer                                             |
 
+**** Frame manipulation key bindings
+Frame manipulation commands (start with ~F~):
+
+| Key Binding | Description                                         |
+|-------------+-----------------------------------------------------|
+| ~SPC F f~   | open a file in another frame                        |
+| ~SPC F c~   | delete the current frame (unless it’s the only one) |
+| ~SPC F C~   | delete all other frames                             |
+| ~SPC F b~   | open a buffer in another frame                      |
+| ~SPC F B~   | open a buffer in another frame (but don’t switch)   |
+| ~SPC F o~   | cycle focus between frames                          |
+| ~SPC F n~   | create a new frame                                  |
+
 **** Emacs and Spacemacs files
 Convenient key bindings are located under the prefix ~SPC f e~ to quickly
 navigate between =Emacs= and Spacemacs specific files.
@@ -2704,14 +2718,14 @@ Text related commands (start with ~x~):
 | ~SPC x g l~   | set languages used by translate commands                      |
 | ~SPC x g t~   | translate current word using Google Translate                 |
 | ~SPC x g T~   | reverse source and target languages                           |
-| ~SPC x i i~   | cycle symbol naming styles (~i~ to keep cycling)              |
-| ~SPC x i u~   | change symbol style to =under_score=                          |
-| ~SPC x i _~   | change symbol style to =under_score=                          |
-| ~SPC x i U~   | change symbol style to =UP_CASE=                              |
-| ~SPC x i k~   | change symbol style to =kebab-case=                           |
-| ~SPC x i -~   | change symbol style to =kebab-case=                           |
 | ~SPC x i c~   | change symbol style to =lowerCamelCase=                       |
 | ~SPC x i C~   | change symbol style to =UpperCamelCase=                       |
+| ~SPC x i i~   | cycle symbol naming styles (~i~ to keep cycling)              |
+| ~SPC x i -~   | change symbol style to =kebab-case=                           |
+| ~SPC x i k~   | change symbol style to =kebab-case=                           |
+| ~SPC x i _~   | change symbol style to =under_score=                          |
+| ~SPC x i u~   | change symbol style to =under_score=                          |
+| ~SPC x i U~   | change symbol style to =UP_CASE=                              |
 | ~SPC x j c~   | set the justification to center                               |
 | ~SPC x j f~   | set the justification to full                                 |
 | ~SPC x j l~   | set the justification to left                                 |
