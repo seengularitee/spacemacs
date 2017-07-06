@@ -130,8 +130,26 @@ automatically applied to."
   (when (require 'centered-buffer-mode nil t)
     (call-interactively 'spacemacs-centered-buffer-mode)))
 
+(defun spacemacs/toggle-centered-buffer-mode-frame ()
+  "Open current buffer in the new frame centered and without mode-line."
+  (interactive)
+  (when (require 'centered-buffer-mode nil t)
+    (switch-to-buffer-other-frame (current-buffer) t)
+    (toggle-frame-fullscreen)
+    (run-with-idle-timer
+     ;; FIXME: We need this delay to make sure that the
+     ;; `toggle-frame-fullscreen' fully "finished"
+     ;; it will be better to use something more reliable
+     ;; instead :)
+     1
+     nil
+     (lambda ()
+       (call-interactively 'spacemacs-centered-buffer-mode)
+       (setq mode-line-format nil)))))
+
 (defun spacemacs/centered-buffer-mode-full-width ()
   "Center buffer in the frame."
+  ;; FIXME Needs new key-binding.
   (interactive)
   (when (require 'centered-buffer-mode nil t)
     (spacemacs/maximize-horizontally)
@@ -286,7 +304,7 @@ projectile cache when it's possible and update recentf list."
              (when (fboundp 'recentf-add-file)
                (recentf-add-file new-name)
                (recentf-remove-if-non-kept filename))
-             (when (and (configuration-layer/package-usedp 'projectile)
+             (when (and (configuration-layer/package-used-p 'projectile)
                         (projectile-project-p))
                (call-interactively #'projectile-invalidate-cache))
              (message "File '%s' successfully renamed to '%s'" short-name (file-name-nondirectory new-name)))))))
@@ -321,7 +339,7 @@ initialized with the current filename."
                  (when (fboundp 'recentf-add-file)
                    (recentf-add-file new-name)
                    (recentf-remove-if-non-kept filename))
-                 (when (and (configuration-layer/package-usedp 'projectile)
+                 (when (and (configuration-layer/package-used-p 'projectile)
                             (projectile-project-p))
                    (call-interactively #'projectile-invalidate-cache))
                  (message "File '%s' successfully renamed to '%s'"
@@ -369,7 +387,7 @@ removal."
     (when (or (not ask-user)
               (yes-or-no-p "Are you sure you want to delete this file? "))
       (delete-file filename)
-      (when (and (configuration-layer/package-usedp 'projectile)
+      (when (and (configuration-layer/package-used-p 'projectile)
                  (projectile-project-p))
         (call-interactively #'projectile-invalidate-cache)))))
 
@@ -392,7 +410,7 @@ FILENAME is deleted using `spacemacs/delete-file' function.."
       (when (yes-or-no-p "Are you sure you want to delete this file? ")
         (delete-file filename t)
         (kill-buffer buffer)
-        (when (and (configuration-layer/package-usedp 'projectile)
+        (when (and (configuration-layer/package-used-p 'projectile)
                    (projectile-project-p))
           (call-interactively #'projectile-invalidate-cache))
         (message "File '%s' successfully removed" filename)))))
